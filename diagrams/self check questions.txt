@@ -1,0 +1,31 @@
+1. What diagram types do you have on your current project?
+2. What are the pros and cons of UML diagrams?
+3. What is the difference between a structural diagram and a behavioral diagram in UML?
+4. Name the relationship types in a use case diagram
+5. What is the sequence diagram?
+
+
+1. Use case diagrams, sequence diagrams
+2. Pros of UML Diagrams:
+- Visual Representation of a System
+- Standardization
+- Abstraction: UML allows focusing on specific aspects of the system
+- Documentation: UML diagrams serve as effective documentation
+- Design Analysis: UML enables the analysis and validation of a system's design
+
+Cons:
+- Complexity: As a system grows, UML diagrams can become more difficult to manage.
+- Potential Inconsistency: UML diagrams need to be regularly updated to reflect the current state
+- Overuse or Misuse: can introduce unnecessary complexity into the project
+
+3. Structural diagram focuses on static view of a system, Behavioral diagram focuses on dynamic view of a system
+
+4. 5 relationships in use case diagram:
+	1. Association between actor and use case
+	2. Generalization of an actor
+	3. Extend btw two use cases
+	4. Include btw two use cases
+	5. Generalization of a use case
+        
+
+5. Sequence diagram - shows how objects interact in a particular scenario
