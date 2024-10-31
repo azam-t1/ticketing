@@ -4,6 +4,8 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem", "Ticketin
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.DAL", "TicketingSystem.DAL\TicketingSystem.DAL.csproj", "{6DA0D3B6-889B-4734-953A-E2C0F3234EB0}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.API", "TicketingSystem.API\TicketingSystem.API.csproj", "{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -18,5 +20,9 @@ Global
 		{6DA0D3B6-889B-4734-953A-E2C0F3234EB0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{6DA0D3B6-889B-4734-953A-E2C0F3234EB0}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{6DA0D3B6-889B-4734-953A-E2C0F3234EB0}.Release|Any CPU.Build.0 = Release|Any CPU
+		{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

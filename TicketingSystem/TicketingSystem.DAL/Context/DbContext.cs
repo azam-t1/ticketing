@@ -48,16 +48,10 @@ public class TicketingDbContext(DbContextOptions<TicketingDbContext> options) : 
             .WithOne(s => s.Manifest)
             .HasForeignKey(s => s.ManifestId);
 
+        
         modelBuilder.Entity<Section>()
-            .HasMany(s => s.Rows)
-            .WithOne(r => r.Section)
-            .HasForeignKey(r => r.SectionId);
-
-        modelBuilder.Entity<Row>()
-            .HasMany(r => r.Seats)
-            .WithOne(s => s.Row)
-            .HasForeignKey(s => s.RowId);
-
+            .HasMany(s => s.Seats);
+        
         modelBuilder.Entity<Offer>()
             .HasOne(o => o.Event)
             .WithMany(e => e.Offers)

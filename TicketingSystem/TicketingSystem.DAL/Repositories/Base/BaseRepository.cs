@@ -13,7 +13,7 @@ public class BaseRepository<T>(TicketingDbContext context) : IBaseRepository<T>
         return await _dbSet.ToListAsync();
     }
 
-    public async Task<T?> GetByIdAsync(int id)
+    public async Task<T?> GetByIdAsync(Guid id)
     {
         return await _dbSet.FindAsync(id);
     }
@@ -30,7 +30,7 @@ public class BaseRepository<T>(TicketingDbContext context) : IBaseRepository<T>
         await context.SaveChangesAsync();
     }
 
-    public async Task DeleteAsync(int id)
+    public async Task DeleteAsync(Guid id)
     {
         var entity = await GetByIdAsync(id);
         if (entity != null)
