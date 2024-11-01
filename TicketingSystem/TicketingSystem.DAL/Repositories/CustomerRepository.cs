@@ -17,12 +17,12 @@ public class CustomerRepository(TicketingDbContext context) : BaseRepository<Cus
     
     public async Task<Customer?> GetCustomerByEmailAsync(string email)
     {
-        return await _dbSet.FirstOrDefaultAsync(c => c.Email == email);
+        return await DbSet.FirstOrDefaultAsync(c => c.Email == email);
     }
 
     public async Task<bool> CheckPasswordAsync(string customerId, string password)
     {
-        var customer = await _dbSet.FindAsync(customerId);
+        var customer = await DbSet.FindAsync(customerId);
         if (customer != null)
         {
             // Implement password verification logic here

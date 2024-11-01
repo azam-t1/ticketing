@@ -7,6 +7,17 @@ namespace TicketingSystem.API.Controllers;
 [Route("api/[controller]")]
 public class VenuesController(IVenueRepository venueRepository) : ControllerBase
 {
+    [HttpGet("{venueId}")]
+    public async Task<IActionResult> GetVenue(Guid newGuid)
+    {
+        var venue = await venueRepository.GetByIdAsync(newGuid);
+        if (venue == null)
+        {
+            return NotFound();
+        }
+        return Ok(venue);
+    }
+    
     [HttpGet]
     public async Task<IActionResult> GetVenues()
     {
@@ -24,4 +35,5 @@ public class VenuesController(IVenueRepository venueRepository) : ControllerBase
         }
         return Ok(venue.Sections);
     }
+
 }

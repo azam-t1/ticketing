@@ -8,19 +8,18 @@ namespace TicketingSystem.DAL.Repositories;
 public interface ICartRepository : IBaseRepository<Cart>
 {
     Task<Cart?> GetCartByCustomerIdAsync(int customerId);
-    Task<Cart> AddSeatToCartAsync(Guid cartId, int eventId, int seatId, int priceId);
-    Task<bool> DeleteSeatFromCartAsync(Guid cartId, int eventId, int seatId);
-    Task<int?> BookCartAsync(Guid cartId);
+    Task<Cart> AddSeatToCartAsync(Guid cartId, Guid eventId, int seatId, int priceId);
+    Task<bool> DeleteSeatFromCartAsync(Guid cartId, Guid eventId, int seatId);
+    Task<Guid?> BookCartAsync(Guid cartId);
 }
 
 public class CartRepository(TicketingDbContext context, IPaymentRepository paymentRepository) : BaseRepository<Cart>(context), ICartRepository
 {
     private readonly TicketingDbContext _context = context;
-    private readonly IPaymentRepository _paymentRepository = paymentRepository;
-    
+
     public async Task<Cart?> GetCartByCustomerIdAsync(int customerId)
     {
-        return await _dbSet
+        return await DbSet
             .Include(c => c.CartItems)
             .ThenInclude(t => t.Seat)
             .ThenInclude(s => s.Row)
@@ -30,7 +29,7 @@ public class CartRepository(TicketingDbContext context, IPaymentRepository payme
             .FirstOrDefaultAsync(c => c.CustomerId == customerId);
     }
 
-    public async Task<Cart> AddSeatToCartAsync(Guid cartId, int eventId, int seatId, int priceId)
+    public async Task<Cart> AddSeatToCartAsync(Guid cartId, Guid eventId, int seatId, int priceId)
     {
         var cart = await GetByIdAsync(cartId);
         if (cart == null)
@@ -67,7 +66,7 @@ public class CartRepository(TicketingDbContext context, IPaymentRepository payme
         return cart;
     }
 
-    public async Task<bool> DeleteSeatFromCartAsync(Guid cartId, int eventId, int seatId)
+    public async Task<bool> DeleteSeatFromCartAsync(Guid cartId, Guid eventId, int seatId)
     {
         var cart = await GetByIdAsync(cartId);
 
@@ -82,7 +81,7 @@ public class CartRepository(TicketingDbContext context, IPaymentRepository payme
         return true;
     }
 
-    public async Task<int?> BookCartAsync(Guid cartId)
+    public async Task<Guid?> BookCartAsync(Guid cartId)
     {
         var cart = await GetByIdAsync(cartId);
         if (cart == null || !cart.CartItems.Any())
@@ -97,7 +96,7 @@ public class CartRepository(TicketingDbContext context, IPaymentRepository payme
 
         // Generate a new Payment
         var paymentAmount = cart.CartItems.Sum(ci => ci.Price.Amount);
-        var payment = await _paymentRepository.CreatePaymentAsync(cart.Id, paymentAmount);
+        var payment = await paymentRepository.CreatePaymentAsync(cart.Id, paymentAmount);
         
         await _context.SaveChangesAsync();
         return payment.Id;

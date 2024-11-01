@@ -1,32 +1,33 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using TicketingSystem.DAL.Context;
+using TicketingSystem.DAL.Models;
 
 namespace TicketingSystem.DAL.Repositories.Base;
 
 public class BaseRepository<T>(TicketingDbContext context) : IBaseRepository<T>
     where T : class
 {
-    protected readonly DbSet<T> _dbSet = context.Set<T>();
+    protected readonly DbSet<T> DbSet = context.Set<T>();
 
     public async Task<IEnumerable<T?>> GetAllAsync()
     {
-        return await _dbSet.ToListAsync();
+        return await DbSet.ToListAsync();
     }
 
     public async Task<T?> GetByIdAsync(Guid id)
     {
-        return await _dbSet.FindAsync(id);
+        return await DbSet.FindAsync(id);
     }
 
     public async Task AddAsync(T? entity)
     {
-        await _dbSet.AddAsync(entity);
+        await DbSet.AddAsync(entity);
         await context.SaveChangesAsync();
     }
 
     public async Task UpdateAsync(T? entity)
     {
-        _dbSet.Update(entity);
+        DbSet.Update(entity);
         await context.SaveChangesAsync();
     }
 
@@ -35,7 +36,7 @@ public class BaseRepository<T>(TicketingDbContext context) : IBaseRepository<T>
         var entity = await GetByIdAsync(id);
         if (entity != null)
         {
-            _dbSet.Remove(entity);
+            DbSet.Remove(entity);
             await context.SaveChangesAsync();
         }
     }

@@ -21,7 +21,7 @@ public class SeatRepository(TicketingDbContext context) : BaseRepository<Seat>(c
             .Select(t => t.SeatId)
             .ToListAsync();
 
-        return await _dbSet
+        return await DbSet
             .Where(s => !bookedSeats.Contains(s.Id))
             .ToListAsync();
     }

@@ -9,6 +9,17 @@ namespace TicketingSystem.API.Controllers;
 public class OrdersController(ICartRepository cartRepository) : ControllerBase
 {
     [HttpGet("carts/{cartId}")]
+    public async Task<IActionResult> GetCart(Guid cartId)
+    {
+        var cart = await cartRepository.GetByIdAsync(cartId);
+        if (cart == null)
+        {
+            return NotFound();
+        }
+        return Ok(cart);
+    }
+    
+    [HttpGet("carts/{cartId}")]
     public async Task<IActionResult> GetCartItems(Guid cartId)
     {
         var cart = await cartRepository.GetByIdAsync(cartId);
@@ -37,7 +48,7 @@ public class OrdersController(ICartRepository cartRepository) : ControllerBase
     }
 
     [HttpDelete("carts/{cartId}/events/{eventId}/seats/{seatId}")]
-    public async Task<IActionResult> DeleteSeatFromCart(Guid cartId, int eventId, int seatId)
+    public async Task<IActionResult> DeleteSeatFromCart(Guid cartId, Guid eventId, int seatId)
     {
         var result = await cartRepository.DeleteSeatFromCartAsync(cartId, eventId, seatId);
         if (!result)
@@ -54,6 +65,8 @@ public class OrdersController(ICartRepository cartRepository) : ControllerBase
         {
             return BadRequest();
         }
+        
         return Ok(new { PaymentId = paymentId });
     }
+
 }

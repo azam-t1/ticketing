@@ -27,7 +27,7 @@ public class NotificationRepository(TicketingDbContext context) : BaseRepository
                 NotificationType = "PaymentConfirmation"
             };
 
-            await _dbSet.AddAsync(notification);
+            await DbSet.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
     }
@@ -45,7 +45,7 @@ public class NotificationRepository(TicketingDbContext context) : BaseRepository
                 NotificationType = "PaymentRejection"
             };
 
-            await _dbSet.AddAsync(notification);
+            await DbSet.AddAsync(notification);
             await _context.SaveChangesAsync();
         }
     }

@@ -24,7 +24,7 @@ public class PaymentRepository(TicketingDbContext context) : BaseRepository<Paym
             .Select(t => t.Id)
             .ToListAsync();
 
-        return await _dbSet
+        return await DbSet
             .Where(p => tickets.Contains(p.TicketId))
             .ToListAsync();
     }
@@ -41,7 +41,7 @@ public class PaymentRepository(TicketingDbContext context) : BaseRepository<Paym
             PaymentStatus = PaymentStatus.Pending
         };
 
-        await _dbSet.AddAsync(payment);
+        await DbSet.AddAsync(payment);
         await _context.SaveChangesAsync();
 
         return payment;
@@ -49,7 +49,7 @@ public class PaymentRepository(TicketingDbContext context) : BaseRepository<Paym
     
     public async Task CompletePaymentAsync(Guid paymentId)
     {
-        var payment = await _dbSet.FindAsync(paymentId);
+        var payment = await DbSet.FindAsync(paymentId);
         if (payment == null)
             throw new KeyNotFoundException("Payment not found");
 
@@ -65,7 +65,7 @@ public class PaymentRepository(TicketingDbContext context) : BaseRepository<Paym
     
     public async Task FailPaymentAsync(Guid paymentId)
     {
-        var payment = await _dbSet.FindAsync(paymentId);
+        var payment = await DbSet.FindAsync(paymentId);
         if (payment == null)
             throw new KeyNotFoundException("Payment not found");
 

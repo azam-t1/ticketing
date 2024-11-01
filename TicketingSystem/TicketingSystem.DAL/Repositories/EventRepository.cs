@@ -17,12 +17,12 @@ public class EventRepository(TicketingDbContext context) : BaseRepository<Event>
     
     public async Task<IEnumerable<Event>> GetEventsByVenueAsync(int venueId)
     {
-        return await _dbSet.Where(e => e.VenueId == venueId).ToListAsync();
+        return await DbSet.Where(e => e.VenueId == venueId).ToListAsync();
     }
 
     public async Task<IEnumerable<Event>> SearchEventsAsync(string searchTerm, DateTime? startDate = null, DateTime? endDate = null)
     {
-        var query = _dbSet.AsQueryable();
+        var query = DbSet.AsQueryable();
 
         if (!string.IsNullOrEmpty(searchTerm))
         {

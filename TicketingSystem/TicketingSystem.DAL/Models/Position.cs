@@ -10,12 +10,12 @@ public class Manifest
 
 public class Venue
 {
-    public int Id { get; set; }
+    public Guid Id { get; set; }
     public string Name { get; set; }
     public string Location { get; set; }
     public int ManifestId { get; set; }
     public Manifest Manifest { get; set; }
-    public ICollection<Section> Sections { get; } = new HashSet<Section>();
+    public ICollection<Section> Sections { get; set; } = new HashSet<Section>();
 }
 
 public class Section

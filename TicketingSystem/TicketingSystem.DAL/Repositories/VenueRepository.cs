@@ -8,7 +8,7 @@ namespace TicketingSystem.DAL.Repositories;
 public interface IVenueRepository : IBaseRepository<Venue>
 {
     Task<IEnumerable<Venue>> GetVenuesByLocationAsync(string location);
-    Task UpdateVenueAsync(int venueId, string name, string location);
+    Task UpdateVenueAsync(Guid venueId, string name, string location);
 }
 
 public class VenueRepository(TicketingDbContext context) : BaseRepository<Venue>(context), IVenueRepository
@@ -17,12 +17,12 @@ public class VenueRepository(TicketingDbContext context) : BaseRepository<Venue>
 
     public async Task<IEnumerable<Venue>> GetVenuesByLocationAsync(string location)
     {
-        return await _dbSet.Where(v => v.Location == location).ToListAsync();
+        return await DbSet.Where(v => v.Location == location).ToListAsync();
     }
 
-    public async Task UpdateVenueAsync(int venueId, string name, string location)
+    public async Task UpdateVenueAsync(Guid venueId, string name, string location)
     {
-        var venue = await _dbSet.FindAsync(venueId);
+        var venue = await DbSet.FindAsync(venueId);
         if (venue != null)
         {
             venue.Name = name;

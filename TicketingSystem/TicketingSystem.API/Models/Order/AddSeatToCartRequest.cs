@@ -5,7 +5,7 @@ namespace TicketingSystem.API.Models.Order;
 public class AddSeatToCartRequest
 {
     [Required]
-    public int EventId { get; set; }
+    public Guid EventId { get; set; }
     
     [Required]
     public int SeatId { get; set; }

@@ -6,6 +6,10 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.DAL", "Tick
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.API", "TicketingSystem.API\TicketingSystem.API.csproj", "{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TicketingSystem.Tests", "TicketingSystem.Tests\TicketingSystem.Tests.csproj", "{D402FA61-A125-4395-A8DF-2D125B611692}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "TestProject1", "TestProject1\TestProject1.csproj", "{08088299-E61C-406F-BAE8-BB2A99F6A054}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -24,5 +28,13 @@ Global
 		{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B4C5D84A-E4DE-4D0C-84B6-F270340A7EE5}.Release|Any CPU.Build.0 = Release|Any CPU
+		{D402FA61-A125-4395-A8DF-2D125B611692}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{D402FA61-A125-4395-A8DF-2D125B611692}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{D402FA61-A125-4395-A8DF-2D125B611692}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{D402FA61-A125-4395-A8DF-2D125B611692}.Release|Any CPU.Build.0 = Release|Any CPU
+		{08088299-E61C-406F-BAE8-BB2A99F6A054}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{08088299-E61C-406F-BAE8-BB2A99F6A054}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{08088299-E61C-406F-BAE8-BB2A99F6A054}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{08088299-E61C-406F-BAE8-BB2A99F6A054}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal

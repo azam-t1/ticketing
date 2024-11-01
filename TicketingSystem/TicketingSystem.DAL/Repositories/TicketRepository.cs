@@ -17,13 +17,13 @@ public class TicketRepository(TicketingDbContext context) : BaseRepository<Ticke
 
     public async Task<bool> CancelTicketAsync(int ticketId)
     {
-        var ticket = await _dbSet.FindAsync(ticketId);
+        var ticket = await DbSet.FindAsync(ticketId);
         if (ticket != null)
         {
             // Perform any additional logic for canceling the ticket
             // For example, update the ticket status, create a refund, etc.
             
-            _dbSet.Remove(ticket);
+            DbSet.Remove(ticket);
             await _context.SaveChangesAsync();
         }
 
@@ -32,7 +32,7 @@ public class TicketRepository(TicketingDbContext context) : BaseRepository<Ticke
     
     public async Task<IEnumerable<Ticket>> GetTicketsByCustomerIdAsync(int customerId)
     {
-        return await _dbSet
+        return await DbSet
             .Where(t => t.CustomerId == customerId)
             .ToListAsync();
     }
