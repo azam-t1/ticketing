@@ -8,7 +8,9 @@ namespace TicketingSystem.DAL.Repositories;
 public interface IPaymentRepository : IBaseRepository<Payment>
 {
     Task<IEnumerable<Payment>> GetPaymentsByCustomerIdAsync(int customerId);
-    Task<Payment> CreatePaymentAsync(int ticketId, decimal amount, string paymentMethod);
+    Task<Payment> CreatePaymentAsync(Guid cartId, decimal amount);
+    Task CompletePaymentAsync(Guid paymentId);
+    Task FailPaymentAsync(Guid paymentId);
 }
 
 public class PaymentRepository(TicketingDbContext context) : BaseRepository<Payment>(context), IPaymentRepository
@@ -27,20 +29,53 @@ public class PaymentRepository(TicketingDbContext context) : BaseRepository<Paym
             .ToListAsync();
     }
 
-    public async Task<Payment> CreatePaymentAsync(int ticketId, decimal amount, string paymentMethod)
+    public async Task<Payment> CreatePaymentAsync(Guid cartId, decimal amount)
     {
         var payment = new Payment
         {
-            TicketId = ticketId,
+            CartId = cartId,
+            // TicketId = ticketId,
             Amount = amount,
             PaymentDate = DateTime.UtcNow,
-            PaymentMethod = paymentMethod,
-            PaymentStatus = "Pending"
+            // PaymentMethod = paymentMethod,
+            PaymentStatus = PaymentStatus.Pending
         };
 
         await _dbSet.AddAsync(payment);
         await _context.SaveChangesAsync();
 
         return payment;
+    }
+    
+    public async Task CompletePaymentAsync(Guid paymentId)
+    {
+        var payment = await _dbSet.FindAsync(paymentId);
+        if (payment == null)
+            throw new KeyNotFoundException("Payment not found");
+
+        payment.PaymentStatus = PaymentStatus.Completed;
+        var paymentSeats = payment.Cart.CartItems.Select(x => x.Seat).ToList();
+        foreach (var paymentSeat in paymentSeats)
+        {
+            paymentSeat.Status = SeatStatus.Sold;
+        }
+        
+        await _context.SaveChangesAsync();
+    }
+    
+    public async Task FailPaymentAsync(Guid paymentId)
+    {
+        var payment = await _dbSet.FindAsync(paymentId);
+        if (payment == null)
+            throw new KeyNotFoundException("Payment not found");
+
+        payment.PaymentStatus = PaymentStatus.Completed;
+        var paymentSeats = payment.Cart.CartItems.Select(x => x.Seat).ToList();
+        foreach (var paymentSeat in paymentSeats)
+        {
+            paymentSeat.Status = SeatStatus.Available;
+        }
+        
+        await _context.SaveChangesAsync();
     }
 }
