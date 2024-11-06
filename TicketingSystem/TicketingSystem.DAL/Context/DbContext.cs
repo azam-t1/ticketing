@@ -59,8 +59,7 @@ public class TicketingDbContext(DbContextOptions<TicketingDbContext> options) : 
 
         modelBuilder.Entity<Price>()
             .HasOne(p => p.Offer)
-            .WithMany(o => o.Prices)
-            .HasForeignKey(p => p.OfferId);
+            .WithOne(o => o.Price);
 
         modelBuilder.Entity<Ticket>()
             .HasOne(t => t.Event)

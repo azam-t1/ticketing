@@ -63,7 +63,7 @@ public class OrdersController(ICartRepository cartRepository) : ControllerBase
         var paymentId = await cartRepository.BookCartAsync(cartId);
         if (paymentId == null)
         {
-            return BadRequest();
+            return NotFound();
         }
         
         return Ok(new { PaymentId = paymentId });

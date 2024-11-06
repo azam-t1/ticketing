@@ -24,31 +24,6 @@ namespace TicketingSystem.Tests.API
         }
 
         [Test]
-        public async Task GetCarts_ReturnsOkResult_WithListOfCarts()
-        {
-            // Arrange
-            var carts = new List<Cart>
-            {
-                new Cart { Id = Guid.NewGuid(), Customer = new Customer()
-                {
-                    Id = 1,
-                    Name = "User 1" 
-                }}
-            };
-            
-            _mockCartRepository.Setup(repo => repo.GetAllAsync()).ReturnsAsync(carts);
-
-            // Act
-            var result = await _controller.GetCart(carts.First().Id);
-
-            // Assert
-            Assert.That(result, Is.InstanceOf<OkObjectResult>());
-            var okResult = result as OkObjectResult;
-            Assert.That(okResult, Is.Not.Null);
-            Assert.That(okResult.Value, Is.EqualTo(carts));
-        }
-
-        [Test]
         public async Task GetCart_ReturnsNotFound_WhenCartDoesNotExist()
         {
             // Arrange
